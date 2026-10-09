@@ -39,7 +39,12 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - uses: android-actions/setup-android@v3
+      # Máy chủ ubuntu-latest của GitHub đã cài sẵn Android SDK (ANDROID_HOME) – không cần bước setup-android
+      - name: Kiem tra Android SDK
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          ls "$ANDROID_HOME" || (echo "::error::Khong co Android SDK tren may build" && exit 1)
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
 
       - name: Cai thu vien
         run: |
