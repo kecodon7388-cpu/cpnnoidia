@@ -50,7 +50,10 @@ jobs:
         run: |
           cd "$APP_DIR"
           npm install --no-audit --no-fund
+          # Cac goi Expo bat buoc cho buoc dong goi JS/asset (phong khi package.json tren repo chua co)
+          npx expo install expo-asset expo-font expo-constants
           npx expo install --fix
+          npx expo install --check || true
 
       - name: Dat dia chi may chu
         if: ${{ github.event.inputs.server_url != '' }}
